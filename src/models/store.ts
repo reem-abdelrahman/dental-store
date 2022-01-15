@@ -42,7 +42,7 @@ export class Product {
       }
     }
 
-    async show_product_category(categ: string): Promise<dental_product> {
+    async show_product_category(categ: number): Promise<dental_product> {
       try {
       const sql: string = 'SELECT * FROM dental_products WHERE category=($1)';
       const conn: PoolClient = await database.connect()

@@ -1,5 +1,4 @@
 import express, { Request, Response } from 'express'
-import { Order, created_order, order } from '../models/orders'
 import { dental_product, product, Product } from '../models/store'
 const shop = new Product()
 
@@ -8,11 +7,16 @@ const index = async (_req: Request, res: Response) => {
   res.json(products)
 }
 
-const show = async (req: Request, res: Response) => {
-   const product: dental_product = await shop.show_product_id(req.body.id)
+const show_id = async (req: Request, res: Response) => {
+   const product: dental_product = await shop.show_product_id(parseInt(req.params.id))
    res.json(product)
 }
-// add show by categ
+// still need to add show by categ here
+const show_categ = async (req: Request, res: Response) => {
+  const categ: dental_product = await shop.show_product_category(parseInt(req.params.categ))
+  res.json(categ)
+}
+
 const create = async (req: Request, res: Response) => {
     try {
 
@@ -31,7 +35,8 @@ const destroy = async (req: Request, res: Response) => {
 
 const products_routes = (app: express.Application) => {
   app.get('/products', index)
-  app.get('/products/:id', show)
+  app.get('/products/:id', show_id)
+  app.get('/products/:categ', show_categ)
   app.post('/products', create)
   app.delete('/products', destroy)
 }

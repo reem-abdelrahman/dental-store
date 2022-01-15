@@ -8,7 +8,7 @@ export interface user {
     lastname: string;
     password: string | number;
   }
-export interface  createdUser  {
+export interface  created_user  {
     firstname: string;
     lastname: string;
     password: string | number;
@@ -42,9 +42,9 @@ export interface  createdUser  {
           throw new Error(` Error: ${err}. Could not find the user with the id: ${id}.`)
       }
     }
-
-    /*
-    async create(u: createdUser): Promise<dental_product> {
+// still need to add hashing
+    
+    async create(u: created_user): Promise<user> {
         try {
       const sql: string = 'INSERT INTO users (firstname, lastname, password) VALUES($1, $2, $3) RETURNING *';
       const conn: PoolClient = await database.connect()
@@ -53,9 +53,9 @@ export interface  createdUser  {
       conn.release()
       return result.rows[0]
         } catch (err) {
-            throw new Error(`Error: ${err}. Could not add the product ${product}. `)
+            throw new Error(`Error: ${err}. Could not create the user ${u}. `)
         }
-    } */
+    }
 
     async delete_user(id: number): Promise<user> {
         try {

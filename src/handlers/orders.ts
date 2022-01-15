@@ -1,17 +1,22 @@
 import { Order, created_order, order } from '../models/orders'
 import express, { Request, Response } from 'express'
 
+
+// still need to add token
+
 const profit = new Order
+// all orders by user
 const index = async (req: Request, res: Response) => {
     const orders = await profit.view_all(parseInt(req.params.user_id))
     res.json(orders)
   }
-  
+  // latest order by user
   const show = async (req: Request, res: Response) => {
      const order = await profit.show_order_id(parseInt(req.params.user_id))
      res.json(order)
   }
-  // add show by status
+  // still need to add show by status
+  // create a new order
   const create = async (req: Request, res: Response) => {
       try {
   
@@ -32,7 +37,7 @@ const index = async (req: Request, res: Response) => {
     app.get('/orders/:user_id', index)
     app.get('/orders/latest/:user_id', show)
     app.post('/orders', create)
-    app.delete('/orders:order_if', destroy)
+    app.delete('/orders/:order_id', destroy)
   }
   
   export default orders_routes
