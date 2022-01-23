@@ -16,6 +16,10 @@ const index = async (req: Request, res: Response) => {
      res.json(order)
   }
   // still need to add show by status
+  const show_status = async (req: Request, res: Response) => {
+    const order = await profit.show_order_status(req.params.user_id)
+    res.json(order)
+  }  
   // create a new order
   const create = async (req: Request, res: Response) => {
       try {
@@ -36,6 +40,7 @@ const index = async (req: Request, res: Response) => {
   const orders_routes = (app: express.Application) => {
     app.get('/orders/:user_id', index)
     app.get('/orders/latest/:user_id', show)
+    app.get('orders/:status', show_status)
     app.post('/orders', create)
     app.delete('/orders/:order_id', destroy)
   }

@@ -3,9 +3,9 @@ import database from './../database'
 
 export interface order {
     id: number;
-    product_id: string;
+    product_id: number;
     quantity: number;
-    user_id: string;
+    user_id: number;
     status: string;
     
   }
@@ -43,7 +43,18 @@ export class Order {
       }
     }
 
-   
+   // show by status id NEEDS MODIF
+   async show_order_status(status: string): Promise<order[]> {
+    try {
+    const sql:string = 'SELECT * FROM orders WHERE status=($1)';
+    const conn: PoolClient = await database.connect()
+    const result: QueryResult = await conn.query(sql, [status])
+    conn.release()
+    return result.rows
+    } catch (err) {
+        throw new Error(` Error: ${err}. Could not find the  order by status: ${status}.`)
+    }
+  }
 
     async create_order(o: created_order): Promise<order> {
         try {

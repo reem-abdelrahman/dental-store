@@ -11,9 +11,9 @@ const show_id = async (req: Request, res: Response) => {
    const product: dental_product = await shop.show_product_id(parseInt(req.params.id))
    res.json(product)
 }
-// still need to add show by categ here
+
 const show_categ = async (req: Request, res: Response) => {
-  const categ: dental_product = await shop.show_product_category(parseInt(req.params.categ))
+  const categ: dental_product[] = await shop.show_product_category(req.params.categ)
   res.json(categ)
 }
 
