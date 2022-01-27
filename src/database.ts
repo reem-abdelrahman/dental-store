@@ -13,7 +13,7 @@ const {
 } = process.env
 
 
-console.log("the env is"+ ENV);
+
 
  const database: Pool = new Pool ({
   host: POSTGRES_HOST,
@@ -22,4 +22,5 @@ console.log("the env is"+ ENV);
   password: POSTGRES_PASSWORD,
   database: ENV === "test"? POSTGRES_TEST_DB : POSTGRES_DB
   });
+  console.log("the env is "+ ENV);
 export default database

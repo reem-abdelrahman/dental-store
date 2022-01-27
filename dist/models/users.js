@@ -33,6 +33,7 @@ class User {
             throw new Error(` Error: ${err}. Could not find the user with the id: ${id}.`);
         }
     }
+    // may haev an error 
     async create(u) {
         try {
             const sql = 'INSERT INTO users (firstname, lastname, password) VALUES($1, $2, $3) RETURNING *';

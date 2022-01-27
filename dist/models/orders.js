@@ -32,18 +32,18 @@ class Order {
         }
     }
     // show by status id NEEDS MODIF
-    async show_order_status(status) {
-        try {
-            const sql = 'SELECT * FROM orders WHERE status=($1)';
-            const conn = await database_1.default.connect();
-            const result = await conn.query(sql, [status]);
-            conn.release();
-            return result.rows;
-        }
-        catch (err) {
-            throw new Error(` Error: ${err}. Could not find the  order by status: ${status}.`);
-        }
-    }
+    /*
+    async show_order_status(status: string): Promise<order[]> {
+     try {
+     const sql:string = 'SELECT * FROM orders WHERE status=($1)';
+     const conn: PoolClient = await database.connect()
+     const result: QueryResult = await conn.query(sql, [status])
+     conn.release()
+     return result.rows
+     } catch (err) {
+         throw new Error(` Error: ${err}. Could not find the  order by status: ${status}.`)
+     }
+   } */
     async create_order(o) {
         try {
             const sql = 'INSERT INTO orders (product_id, quantity, user_id, status) VALUES($1, $2, $3, $4) RETURNING *';

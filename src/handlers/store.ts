@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express'
 import { dental_product, product, Product } from '../models/store'
+import { authorized } from '../middleware/authorized'
 const shop = new Product()
 
 const index = async (_req: Request, res: Response) => {
@@ -37,7 +38,7 @@ const products_routes = (app: express.Application) => {
   app.get('/products', index)
   app.get('/products/:id', show_id)
   app.get('/products/:categ', show_categ)
-  app.post('/products', create)
+  app.post('/products', authorized, create)
   app.delete('/products', destroy)
 }
 

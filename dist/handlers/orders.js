@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const orders_1 = require("../models/orders");
-// still need to add token
+const authorized_1 = require("../middleware/authorized");
 const profit = new orders_1.Order;
 // all orders by user
 const index = async (req, res) => {
@@ -14,10 +14,11 @@ const show = async (req, res) => {
     res.json(order);
 };
 // still need to add show by status
-const show_status = async (req, res) => {
-    const order = await profit.show_order_status(req.params.user_id);
-    res.json(order);
-};
+/*
+const show_status = async (req: Request, res: Response) => {
+  const order = await profit.show_order_status(req.params.user_id)
+  res.json(order)
+}   */
 // create a new order
 const create = async (req, res) => {
     try {
@@ -35,8 +36,8 @@ const destroy = async (req, res) => {
 };
 const orders_routes = (app) => {
     app.get('/orders/:user_id', index);
-    app.get('/orders/latest/:user_id', show);
-    app.get('orders/:status', show_status);
+    app.get('/orders/latest/:user_id', authorized_1.authorized, show);
+    //  app.get('orders/:status', show_status)
     app.post('/orders', create);
     app.delete('/orders/:order_id', destroy);
 };
