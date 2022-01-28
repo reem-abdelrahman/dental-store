@@ -19,7 +19,7 @@ describe('Users model' ,  () => {
 });
 
 
-
+/*
 describe("test CRUD methods", ()=>{
     // still needs authentication
     it("should create a new user", async ()=>{
@@ -60,4 +60,4 @@ describe("test CRUD methods", ()=>{
         expect(result.lastname).toEqual('Tantawy')
         expect(result.password).not.toEqual('1234!!')
     })
-})
+}) */

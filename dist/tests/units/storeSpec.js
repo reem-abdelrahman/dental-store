@@ -19,15 +19,15 @@ describe('Store model', () => {
         expect(shop.delete).toBeDefined();
     });
 });
+const dummyproduct = { name: 'polishing discs',
+    price: 90,
+    category: 'restoration' };
+let product;
 describe("test CRUD methods", () => {
     it("should create a new product", async () => {
-        const product = await shop.create({
-            name: 'polishing discs',
-            price: 90,
-            category: 'restoration'
-        });
+        product = await shop.create(dummyproduct);
         expect(product).toEqual({
-            id: 1,
+            id: product.id,
             name: 'polishing discs',
             price: 90,
             category: 'restoration'
@@ -35,38 +35,18 @@ describe("test CRUD methods", () => {
     });
     it("should view all products", async () => {
         const products = await shop.view_all();
-        expect(products).toEqual([{
-                id: 1,
-                name: 'polishing discs',
-                price: 90,
-                category: 'restoration'
-            }]);
+        expect(products).toContain(product);
     });
     it("view one product by id", async () => {
-        const product = await shop.show_product_id(1);
-        expect(product).toEqual({
-            id: 1,
-            name: 'polishing discs',
-            price: 90,
-            category: 'restoration'
-        });
+        const viewproduct = await shop.show_product_id(product.id);
+        expect(viewproduct).toEqual(product);
     });
     it("view all products by category", async () => {
         const products = await shop.show_product_category('restoration');
-        expect(products).toEqual([{
-                id: 1,
-                name: 'polishing discs',
-                price: 90,
-                category: 'restoration'
-            }]);
+        expect(products).toContain(product);
     });
     it("should delete product by id", async () => {
-        const product = await shop.delete(1);
-        expect(product).toEqual({
-            id: 1,
-            name: 'polishing discs',
-            price: 90,
-            category: 'restoration'
-        });
+        const deleted_product = await shop.delete(product.id);
+        expect(deleted_product.id).toEqual(product.id);
     });
 });

@@ -22,7 +22,7 @@ describe('Order model' ,  () => {
         expect(shop.delete).toBeDefined();
     });
 });
-
+/*
 describe("test CRUD methods", ()=>{
     const product = new Product()
     const user = new User()
@@ -32,16 +32,15 @@ describe("test CRUD methods", ()=>{
             price: 90,
             category: 'restoration' 
         })
-    afterAll(async()=>{
-        await product.delete(1)
-        await user.delete_user(1)
-        })    
         await user.create({
             firstname: "FKA",
             lastname: "Twigs",
             password: "metaangel2022"
         })
-    })
+    })    
+       
+        
+    
     it("should create a new order", async ()=>{
         const result:order = await shop.create_order({
             product_id: 1,
@@ -86,7 +85,7 @@ describe("test CRUD methods", ()=>{
             user_id: 1,
             status: "active"
         }]) 
-    }) */
+    }) 
     
     it("should delete order by id", async ()=>{
         const result: order = await shop.delete(1)
@@ -98,5 +97,8 @@ describe("test CRUD methods", ()=>{
             status: "active"
         })
     })
-    
-})
+    afterAll( async()=>{
+        await product.delete(1)
+        await user.delete_user(1)
+        }) 
+}) */

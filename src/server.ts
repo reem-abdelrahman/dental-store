@@ -1,11 +1,11 @@
-//import express, { Request, Response } from 'express'
+import express, { Request, Response } from 'express'
 //const express = require('express')
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import products_routes from './handlers/store'
 import orders_routes from './handlers/orders'
 import users_routes from './handlers/users'
-import express, {Response, Request} from 'express'
+
 
 const app: express.Application = express()
 const address: string = "0.0.0.0:3000"

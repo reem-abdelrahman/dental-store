@@ -69,7 +69,7 @@ export class Product {
 
     async delete(id: number): Promise<dental_product> {
         try {
-      const sql: string = 'DELETE FROM dental_products WHERE id=($1)';
+      const sql: string = 'DELETE FROM dental_products WHERE id=($1) RETURNING *';
       const conn: PoolClient = await database.connect()
       const result: QueryResult = await conn.query(sql, [id])
       conn.release()

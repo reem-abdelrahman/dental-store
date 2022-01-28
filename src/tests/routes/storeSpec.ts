@@ -5,6 +5,7 @@ import {user} from '../../models/users'
 
 const request = supertest(app);
 let token
+/*
 describe('', ()=>{
     it('', async ()=>{
         const prod:product  = {
@@ -23,4 +24,4 @@ describe('', ()=>{
             })
         })
     })
-})
+}) */
