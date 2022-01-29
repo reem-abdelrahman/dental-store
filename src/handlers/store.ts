@@ -34,9 +34,13 @@ const show_categ = async (
   req: Request,
   res: Response
 ) => {
+  try{
   const categ: dental_product[] =
     await shop.show_category(req.params.category);
   res.json(categ);
+  } catch(err) {
+    res.json(err).status(400)
+  }
 };
 
 const create = async (
@@ -63,10 +67,14 @@ const destroy = async (
   req: Request,
   res: Response
 ) => {
+  try{
   const cancel = await shop.delete(
     parseInt(req.params.id)
   );
   res.json(cancel);
+  } catch(err) {
+    res.json(err).status(400)
+  }
 };
 
 const products_routes = (

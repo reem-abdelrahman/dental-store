@@ -16,10 +16,13 @@ const show = async (
   req: Request,
   res: Response
 ) => {
-  const order = await profit.show_order_id(
+  try{const order = await profit.show_order_id(
     parseInt(req.params.user_id)
   );
   res.json(order);
+  } catch (err) {
+    res.json(err).status(400)
+  }
 };
 
 // create a new order
@@ -46,10 +49,14 @@ const destroy = async (
   req: Request,
   res: Response
 ) => {
+  try{
   const cancel = await profit.delete(
     parseInt(req.params.id)
   );
   res.json(cancel);
+ } catch(err) {
+   res.json(err).status(400)
+ }
 };
 
 const orders_routes = (

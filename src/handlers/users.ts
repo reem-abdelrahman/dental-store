@@ -26,10 +26,14 @@ const show = async (
   req: Request,
   res: Response
 ) => {
+  try{
   const user: user = await customer.show_user(
     parseInt(req.params.id)
   );
   res.json(user);
+  } catch(err) {
+    res.json(err).status(400)
+  }
 };
 
 const create = async (
@@ -60,10 +64,14 @@ const destroy = async (
   req: Request,
   res: Response
 ) => {
+  try{
   const cancel: user = await customer.delete_user(
     parseInt(req.params.id)
   );
   res.json(cancel);
+  } catch(err) {
+    res.json(err).status(400)
+  }
 };
 
 const users_routes = (

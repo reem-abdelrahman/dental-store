@@ -51,7 +51,7 @@ export class User {
       );
     }
   }
-  // may haev an error
+  
 
   async create(u: created_user): Promise<user> {
     try {
