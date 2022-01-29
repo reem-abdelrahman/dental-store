@@ -1,0 +1,1 @@
+DROP TABLE dental_products CASCADE;
