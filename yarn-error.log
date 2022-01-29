@@ -1,5 +1,5 @@
 Arguments: 
-  /home/reem/.nvm/versions/node/v16.13.0/bin/node /home/reem/.nvm/versions/node/v16.13.0/bin/yarn add 3.9.0
+  /home/reem/.nvm/versions/node/v16.13.0/bin/node /home/reem/.nvm/versions/node/v16.13.0/bin/yarn add --dev prettier eslint eslint-config-prettier eslint-plugin-prettier @typescript-eslint/eslint-plugin @typescript-eslint/plugin
 
 PATH: 
   /home/reem/.nvm/versions/node/v16.13.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/3.9.0: Not found
+  Error: https://registry.yarnpkg.com/@typescript-eslint%2fplugin: Not found
       at Request.params.callback [as _callback] (/home/reem/.nvm/versions/node/v16.13.0/lib/node_modules/yarn/lib/cli.js:67029:18)
       at Request.self.callback (/home/reem/.nvm/versions/node/v16.13.0/lib/node_modules/yarn/lib/cli.js:140883:22)
       at Request.emit (node:events:390:28)
@@ -33,11 +33,9 @@ npm manifest:
     "description": "",
     "main": "server.ts",
     "scripts": {
-      "start": "tsc && node src/server.ts",
-      "mig-up": "db-migrate up -m ./migrations --config ./database.json",
-      "mig-down": "db-migrate down -m ./migrations --config ./database.json",
+      "start": "tsc && node dist/server.js",
       "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
-      "test": "set ENV=test && db-migrate --env test up && jasmine-ts && db-migrate  --env test reset",
+      "test": " tsc && export ENV=test && db-migrate up && jasmine-ts && db-migrate down",
       "tsc": "tsc"
     },
     "author": "Udacity",
@@ -52,8 +50,7 @@ npm manifest:
       "express": "^4.17.2",
       "jsonwebtoken": "^8.5.1",
       "pg": "^8.7.1",
-      "supertest": "^6.2.2",
-      "typescript": "^4.5.5"
+      "supertest": "^6.2.2"
     },
     "devDependencies": {
       "@types/bcrypt": "^5.0.0",
@@ -64,11 +61,12 @@ npm manifest:
       "@types/node": "^17.0.12",
       "@types/pg": "^8.6.4",
       "@types/supertest": "^2.0.11",
-      "jasmine": "^4.0.2",
+      "jasmine": "3.9.0",
       "jasmine-spec-reporter": "^7.0.0",
       "jasmine-ts": "^0.4.0",
       "ts-node": "10.2.1",
-      "tsc-watch": "^4.6.0"
+      "tsc-watch": "^4.6.0",
+      "typescript": "4.4.3"
     }
   }
 
@@ -558,7 +556,7 @@ Lockfile:
   
   db-migrate-pg@^1.2.2:
     version "1.2.2"
-    resolved "https://registry.npmjs.org/db-migrate-pg/-/db-migrate-pg-1.2.2.tgz"
+    resolved "https://registry.yarnpkg.com/db-migrate-pg/-/db-migrate-pg-1.2.2.tgz#66436dbad0ba398c05851d200f768db6b2e5bc1a"
     integrity sha512-+rgrhGNWC2SzcfweopyZqOQ1Igz1RVFMUZwUs6SviHpOUzFwb0NZWkG0pw1GaO+JxTxS7VJjckUWkOwZbVYVag==
     dependencies:
       bluebird "^3.1.1"
@@ -984,10 +982,10 @@ Lockfile:
     resolved "https://registry.npmjs.org/isstream/-/isstream-0.1.2.tgz"
     integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
   
-  jasmine-core@^4.0.0:
-    version "4.0.0"
-    resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-4.0.0.tgz#8299ed38a100c47a1d154af63449a40967a7be5c"
-    integrity sha512-tq24OCqHElgU9KDpb/8O21r1IfotgjIzalfW9eCmRR40LZpvwXT68iariIyayMwi0m98RDt16aljdbwK0sBMmQ==
+  jasmine-core@~3.9.0:
+    version "3.9.0"
+    resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-3.9.0.tgz#09a3c8169fe98ec69440476d04a0e4cb4d59e452"
+    integrity sha512-Tv3kVbPCGVrjsnHBZ38NsPU3sDOtNa0XmbG2baiyJqdb5/SPpDO6GVwJYtUryl6KB4q1Ssckwg612ES9Z0dreQ==
   
   jasmine-spec-reporter@^7.0.0:
     version "7.0.0"
@@ -1003,13 +1001,13 @@ Lockfile:
     dependencies:
       yargs "^17.0.1"
   
-  jasmine@^4.0.2:
-    version "4.0.2"
-    resolved "https://registry.yarnpkg.com/jasmine/-/jasmine-4.0.2.tgz#6f5ff7fbf6b67f56600235fdb7d299ac52876c4b"
-    integrity sha512-YsrgxJQEggxzByYe4j68eQLOiQeSrPDYGv4sHhGBp3c6HHdq+uPXeAQ73kOAQpdLZ3/0zN7x/TZTloqeE1/qIA==
+  jasmine@3.9.0:
+    version "3.9.0"
+    resolved "https://registry.yarnpkg.com/jasmine/-/jasmine-3.9.0.tgz#286c4f9f88b69defc24acf3989af5533d5c6a0e6"
+    integrity sha512-JgtzteG7xnqZZ51fg7N2/wiQmXon09szkALcRMTgCMX4u/m17gVJFjObnvw5FXkZOWuweHPaPRVB6DI2uN0wVA==
     dependencies:
       glob "^7.1.6"
-      jasmine-core "^4.0.0"
+      jasmine-core "~3.9.0"
   
   jsonwebtoken@^8.5.1:
     version "8.5.1"
@@ -1812,10 +1810,10 @@ Lockfile:
       media-typer "0.3.0"
       mime-types "~2.1.24"
   
-  typescript@^4.5.5:
-    version "4.5.5"
-    resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.5.tgz#d8c953832d28924a9e3d37c73d729c846c5896f3"
-    integrity sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==
+  typescript@4.4.3:
+    version "4.4.3"
+    resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.3.tgz#bdc5407caa2b109efd4f82fe130656f977a29324"
+    integrity sha512-4xfscpisVgqqDfPaJo5vkd+Qd/ItkoagnHpufr+i2QCHBsNYp+G7UAoyFl8aPtx879u38wPV65rZ8qbGZijalA==
   
   unpipe@1.0.0, unpipe@~1.0.0:
     version "1.0.0"

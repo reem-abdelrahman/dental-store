@@ -8,24 +8,26 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Index '/products' [GET]
 - Show '/products/:id' [GET]
 - Create [token required] '/products' [POST] 
-- Products by category (args: product category) '/products/:categ' [GET]
+- Products by category (args: product category) '/products/category/:category' [GET]
+- Delete product (args: product id) '/products/:id' [DELETE]
 
 #### Users
 - Index [token required] '/users' [GET]
-- Show [token required] '/products/:users_id' [GET]
+- Show [token required] '/users/:id' [GET]
 - Create N[token required] '/users' [POST]
+- Delete User '/users/:id' [DELETE]
 
 #### Orders
-- Current Order by user (args: user id)[token required] 'orders/latest/:user_id' [GET] 
-- All Orders by user (args: user id) 'orders/:user_id' [GET]
+- Current Order by user (args: user id)[token required] 'orders/latest/:user_id' [GET]
 - Create New Order (args: user id) '/orders' [POST]
+- Delete order (args: order id) '/orders/:id' [DELETE]
 
 ## Data Shapes
 #### Product
 -  id
 - name
 - price
-- [OPTIONAL] category
+- category
 
 TABLE dental_products (
     id SERIAL PRIMARY KEY,
@@ -54,11 +56,15 @@ TABLE users (
 
 TABLE orders (
     id SERIAL PRIMARY KEY,
-    product_id integer,
-    FOREIGN KEY (product_id) REFERENCES dental_products(id),
-    quantity integer,
-    user_id integer,
-    FOREIGN KEY (user_id) REFERENCES users(id),
+    user_id integer foreign key to users table,
     status VARCHAR(10)
 )
+
+
+TABLE product_order (
+    id SERIAL PRIMARY KEY,
+    quantity integer NOT NULL,
+    order_id integer foreign key to  orders table,
+    product_id integer foreign key to dental_products table
+    )
 

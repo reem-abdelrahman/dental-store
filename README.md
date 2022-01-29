@@ -1,13 +1,18 @@
 # Storefront Backend Project
 This is an online dental store RESTful API. This backend will be used for the frontend.
-
+It was made according to the requirements.md file and the rubric of Udacity. You can find the endpoint routes and database schema at the requirements.md file.
 ## Used Technologies
-- Postgres for the database
-- Node/Express
-- dotenv
-- db-migrate
-- jsonwebtoken
-- jasmine 
+- PostgreSQL for the database
+- Node/Express for runtime and backend
+- dotenv for managing environment variables
+- db-migrate for migrations
+- jsonwebtoken for authentication and authorizations
+- jasmine for unit and endpoint testing
+- bcrypt for hashing passwords
+
+## Installation
+- run 'yarn install' to install the packages
+- run 'yarn watch' to start the project
 
 ## Setting up the database
 
@@ -22,8 +27,17 @@ This is an online dental store RESTful API. This backend will be used for the fr
    * 4- GRANT ALL PRIVILEGES ON DATABASE dental_store_test to store_owner;
 
 ## Migrations 
-- From the root directory run:  yarn mig-up
+- From the root directory run:  db-migrate up
+- For down migration run: db-migrate down
 
+
+## Endpoints
+- Please check the requirements.md file
+
+
+## PORTS
+- The backend is running on port 3000
+- The database is running on port 5432
 
 ## ENVIRONMENT VARIABLES
 
@@ -34,14 +48,10 @@ This is an online dental store RESTful API. This backend will be used for the fr
 - POSTGRES_PASSWORD= hellothere
 - POSTGRES_TEST_DB= dental_store_test
 - ENV= dev
+- BCRYPT_PASSWORD= 12345678
+- SALT_ROUNDS= 10
+- TOKEN_SECRET= 123456
 
-## Testing (In Progress)
-
-
-
-## Authentication (In Progress)
-
-
-## Start Application
-
-- run: yarn watch
+## Testing
+Run: yarn test 
+- The env variable will change to test and connect to the testing database.

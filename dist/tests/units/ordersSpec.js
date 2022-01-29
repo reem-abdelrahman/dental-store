@@ -23,67 +23,73 @@ describe('Order model', () => {
         expect(shop.delete).toBeDefined();
     });
 });
-describe("test CRUD methods", () => {
+describe('test CRUD methods', () => {
     const create_product = new store_1.Product();
     const user = new users_1.User();
     let P;
     let result;
-    const dummy_order = { user_id: "", status: "active" };
+    const dummy_order = {
+        user_id: '',
+        status: 'active',
+    };
     let dummy_product;
     beforeAll(async () => {
         P = await create_product.create({
             name: 'polishing discs',
             price: 90,
-            category: 'restoration'
+            category: 'restoration',
         });
         if (P.id)
             dummy_product = P;
         const new_user = await user.create({
-            firstname: "FKA",
-            lastname: "Twigs",
-            password: "metaangel2022"
+            firstname: 'FKA',
+            lastname: 'Twigs',
+            password: 'metaangel2022',
         });
         if (new_user.id)
-            dummy_order.user_id = new_user.id.toString();
+            dummy_order.user_id =
+                new_user.id.toString();
     });
-    it("should create a new order", async () => {
+    it('should create a new order', async () => {
         result = await shop.create_order(dummy_order);
         expect(result).toEqual({
             id: 1,
             user_id: 1,
-            status: "active"
+            status: 'active',
         });
     });
-    it("should add a product to the order", async () => {
+    it('should add a product to the order', async () => {
         const added_product = await shop.addProd({
             quantity: 15,
             order_id: result.id,
-            product_id: P.id
+            product_id: P.id,
         });
         expect(added_product).toEqual({
             quantity: 15,
             order_id: 1,
             product_id: 1,
-            id: 1
+            id: 1,
         });
     });
-    it("view one order by id", async () => {
+    it('view one order by id', async () => {
         const result = await shop.show_order_id(1);
         expect(result).toEqual({
             id: 1,
             user_id: 1,
-            status: "active"
+            status: 'active',
         });
     });
-    it("view orders by status", async () => {
-        const result = await shop.show_order_status("active");
-        expect(result).toEqual([{
+    it('view orders by status', async () => {
+        const result = await shop.show_order_status('active');
+        expect(result).toEqual([
+            {
                 id: 1,
                 user_id: 1,
-                status: "active"
-            }]);
+                status: 'active',
+            },
+        ]);
     });
-    it("should delete order by id", async () => {
+    it('should delete order by id', async () => {
         const sql = 'DELETE FROM product_order; \n ALTER SEQUENCE product_order_id_seq RESTART WITH 1';
         const conn = await database_1.default.connect();
         await conn.query(sql);
@@ -92,7 +98,7 @@ describe("test CRUD methods", () => {
         expect(result).toEqual({
             id: 1,
             user_id: 1,
-            status: "active"
+            status: 'active',
         });
     });
     afterAll(async () => {

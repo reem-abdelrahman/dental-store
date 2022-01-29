@@ -34,8 +34,10 @@ class Order {
         try {
             const sql = 'INSERT INTO orders (user_id, status) VALUES($1, $2) RETURNING *';
             const conn = await database_1.default.connect();
-            const result = await conn
-                .query(sql, [o.user_id, o.status]);
+            const result = await conn.query(sql, [
+                o.user_id,
+                o.status,
+            ]);
             conn.release();
             return result.rows[0];
         }
@@ -47,8 +49,11 @@ class Order {
         try {
             const sql = 'INSERT INTO product_order (quantity, order_id, product_id) VALUES($1, $2, $3) RETURNING *';
             const conn = await database_1.default.connect();
-            const result = await conn
-                .query(sql, [p.quantity, p.order_id, p.product_id]);
+            const result = await conn.query(sql, [
+                p.quantity,
+                p.order_id,
+                p.product_id,
+            ]);
             conn.release();
             return result.rows[0];
         }

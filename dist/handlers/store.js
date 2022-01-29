@@ -12,12 +12,17 @@ const show_id = async (req, res) => {
     res.json(product);
 };
 const show_categ = async (req, res) => {
-    const categ = await shop.show_product_category(req.params.categ);
+    const categ = await shop.show_category(req.params.category);
     res.json(categ);
 };
 const create = async (req, res) => {
     try {
-        const new_product = await shop.create(req.body);
+        const product = {
+            name: req.body.name,
+            price: req.body.price,
+            category: req.body.category,
+        };
+        const new_product = await shop.create(product);
         res.json(new_product);
     }
     catch (err) {
@@ -26,14 +31,14 @@ const create = async (req, res) => {
     }
 };
 const destroy = async (req, res) => {
-    const cancel = await shop.delete(req.body.id);
+    const cancel = await shop.delete(parseInt(req.params.id));
     res.json(cancel);
 };
 const products_routes = (app) => {
     app.get('/products', index);
     app.get('/products/:id', show_id);
-    app.get('/products/:categ', show_categ);
+    app.get('/products/category/:category', show_categ);
     app.post('/products', authorized_1.authorized, create);
-    app.delete('/products', destroy);
+    app.delete('/products/:id', destroy);
 };
 exports.default = products_routes;

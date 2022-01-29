@@ -20,26 +20,25 @@ describe('Users model', () => {
         expect(shop.delete_user).toBeDefined();
     });
 });
-describe("test CRUD methods", () => {
-    // still needs authentication
+describe('test CRUD methods', () => {
     afterAll(async () => {
         const conn = await database_1.default.connect();
         const sql = 'DELETE FROM users; \n ALTER SEQUENCE users_id_seq RESTART WITH 1 \n';
         await conn.query(sql);
         conn.release();
     });
-    it("should create a new user", async () => {
+    it('should create a new user', async () => {
         const result = await shop.create({
             firstname: 'Eman',
             lastname: 'Tantawy',
-            password: '1234!!'
+            password: '1234!!',
         });
         expect(result.id).toEqual(1);
         expect(result.firstname).toEqual('Eman');
         expect(result.lastname).toEqual('Tantawy');
         expect(result.password).not.toEqual('1234!!');
     });
-    it("should view all users", async () => {
+    it('should view all users', async () => {
         const result = await shop.view_users();
         expect(result.length).toEqual(1);
         expect(result[0].id).toEqual(1);
@@ -47,14 +46,14 @@ describe("test CRUD methods", () => {
         expect(result[0].lastname).toEqual('Tantawy');
         expect(result[0].password).not.toEqual('1234!!');
     });
-    it("view user by id", async () => {
+    it('view user by id', async () => {
         const result = await shop.show_user(1);
         expect(result.id).toEqual(1);
         expect(result.firstname).toEqual('Eman');
         expect(result.lastname).toEqual('Tantawy');
         expect(result.password).not.toEqual('1234!!');
     });
-    it("should delete user by id", async () => {
+    it('should delete user by id', async () => {
         const result = await shop.delete_user(1);
         expect(result.id).toEqual(1);
         expect(result.firstname).toEqual('Eman');

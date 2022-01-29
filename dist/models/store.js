@@ -30,7 +30,7 @@ class Product {
             throw new Error(` Error: ${err}. Could not find the product with the id: ${id}.`);
         }
     }
-    async show_product_category(categ) {
+    async show_category(categ) {
         try {
             const sql = 'SELECT * FROM dental_products WHERE category=($1)';
             const conn = await database_1.default.connect();
@@ -46,8 +46,11 @@ class Product {
         try {
             const sql = 'INSERT INTO dental_products (name, price, category) VALUES($1, $2, $3) RETURNING *';
             const conn = await database_1.default.connect();
-            const result = await conn
-                .query(sql, [p.name, p.price, p.category]);
+            const result = await conn.query(sql, [
+                p.name,
+                p.price,
+                p.category,
+            ]);
             conn.release();
             return result.rows[0];
         }
