@@ -83,7 +83,7 @@ const pepper: string = process.env.BCRYPT_PASSWORD as string
  
     async delete_user(id: number): Promise<user> {
         try {
-      const sql: string = 'DELETE FROM users WHERE id=($1)';
+      const sql: string = 'DELETE FROM users WHERE id=($1) RETURNING *';
       const conn: PoolClient = await database.connect()
       const result: QueryResult = await conn.query(sql, [id])
       conn.release()

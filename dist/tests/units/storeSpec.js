@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const store_1 = require("../../models/store");
+const database_1 = __importDefault(require("../../database"));
 const shop = new store_1.Product();
 describe('Store model', () => {
     it('should have an index method', () => {
@@ -19,15 +23,21 @@ describe('Store model', () => {
         expect(shop.delete).toBeDefined();
     });
 });
-const dummyproduct = { name: 'polishing discs',
-    price: 90,
-    category: 'restoration' };
-let product;
 describe("test CRUD methods", () => {
+    afterAll(async () => {
+        const conn = await database_1.default.connect();
+        const sql = 'DELETE FROM dental_products; \n ALTER SEQUENCE dental_products_id_seq RESTART WITH 1 \n';
+        await conn.query(sql);
+        conn.release();
+    });
     it("should create a new product", async () => {
-        product = await shop.create(dummyproduct);
+        const product = await shop.create({
+            name: 'polishing discs',
+            price: 90,
+            category: 'restoration'
+        });
         expect(product).toEqual({
-            id: product.id,
+            id: 1,
             name: 'polishing discs',
             price: 90,
             category: 'restoration'
@@ -35,18 +45,38 @@ describe("test CRUD methods", () => {
     });
     it("should view all products", async () => {
         const products = await shop.view_all();
-        expect(products).toContain(product);
+        expect(products).toEqual([{
+                id: 1,
+                name: 'polishing discs',
+                price: 90,
+                category: 'restoration'
+            }]);
     });
     it("view one product by id", async () => {
-        const viewproduct = await shop.show_product_id(product.id);
-        expect(viewproduct).toEqual(product);
+        const product = await shop.show_product_id(1);
+        expect(product).toEqual({
+            id: 1,
+            name: 'polishing discs',
+            price: 90,
+            category: 'restoration'
+        });
     });
     it("view all products by category", async () => {
         const products = await shop.show_product_category('restoration');
-        expect(products).toContain(product);
+        expect(products).toEqual([{
+                id: 1,
+                name: 'polishing discs',
+                price: 90,
+                category: 'restoration'
+            }]);
     });
     it("should delete product by id", async () => {
-        const deleted_product = await shop.delete(product.id);
-        expect(deleted_product.id).toEqual(product.id);
+        const product = await shop.delete(1);
+        expect(product).toEqual({
+            id: 1,
+            name: 'polishing discs',
+            price: 90,
+            category: 'restoration'
+        });
     });
 });
